@@ -9,6 +9,7 @@ class Key extends Component {
     super(props)
     this.props = props
     this.synth = props.synth
+    this.maxHeight = props.maxHeight;
     
   }
 
@@ -22,12 +23,12 @@ class Key extends Component {
   }
 
   getKeyHeight(){
-	  var height
-	let keyHeightWhite = Math.min(window.screen.height - (0.2*window.screen.height), 100)
-    let keyHeightBlack = 0.6 * keyHeightWhite
+    let height;
+	let keyHeightWhite = this.maxHeight;
+  let keyHeightBlack = 0.6 * keyHeightWhite
 	this.props.color == "key_white" ? height = keyHeightWhite : height = keyHeightBlack
 	return height  
-	  }
+  }
 
 
   render(){

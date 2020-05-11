@@ -36,12 +36,35 @@ export default class SynthUI extends React.Component {
   constructor(props) {
     super(props);
     var synth = new Synth();
+    
     InitMIDI(synth); // async call so it returns undefined until resolved
-    this.state = {'synth': synth, 'enableKeyBoard': true, effect:"normal", startWithOctave:startWithOctave, numberOfOctaves:numberOfOctaves};
+    this.state = {'synth': synth, 'enableKeyBoard': true, effect:"normal", startWithOctave:startWithOctave, numberOfOctaves:numberOfOctaves, 'is_playing': false, screenHeight:0, screenWidth:0, selectedNoteDurationIndex: 0};
+    this.topSection = null;
+    this.bottomSection = null;
+
     this.addOnKeyDownListener();
     this.addOnKeyUpListener();
 
+
   }
+  
+  renderNoteDurationsButtonsTable(){
+    var noteDurations = ["1", "2", "3", "4", "5", "6", "7",  "8", "9", "10", "11", "12"]
+    var tableRows = [];
+    for (var i = 0; i < noteDurations.length; i+=2) {
+    tableRows.push(<tr> 
+                <td><button  key={i}>{noteDurations[i]}</button></td>             
+                <td><button  key={i+1}>{noteDurations[i+1]}</button></td>
+            </tr>);
+    }
+    return tableRows;
+  }
+    
+    
+
+  componentWillMount(){
+          this.setState({screenHeight: window.innerHeight, screenWidth:window.innerWidth});
+      }
 
 
 	onEffectChange(id){
@@ -76,29 +99,52 @@ export default class SynthUI extends React.Component {
 			};
 		}
 
+ onPlayButtonClicked(e){
+	 var icon = document.getElementById('play');
+	 this.state.isPlaying = !this.state.isPlaying
+	 if(this.tanpura.isPlaying){
+		 icon.classList.add("active");
+		 // play here 
+		 }
+	 if(!this.tanpura.isPlaying){
+		icon.classList.remove("active"); 
+		// stop playing here 
+		
+		}
+	 return false;
+	 }	
+
 
   render() {
-	var setVolume =   this.setVolume;    
+    var screenHeight = this.state.screenHeight;
+    var topHeight = Math.floor(screenHeight*3/4); 
+    var bottomHeight = Math.floor(screenHeight/4);
+    var setVolume =   this.setVolume;    
     return (
       <div>
-      <div id = "synthContainer" >
-      
-        <Keyboard startWithOctave={this.state.startWithOctave} numberOfOctaves={this.state.numberOfOctaves} synth={this.state.synth}  midi={this.state.midi}/> </div>
-        <div class="bottom">
-        <button id="midi-btn" class="button -salmon center">MIDI Devices</button>
-				<fieldset>
-				  <input id="soft" onChange={this.onEffectChange.bind(this, 'soft')} class="radio-inline-input" type="radio" name="accessible-radio" value="soft" checked={this.state.effect === 'soft'}/>
-				  <label class="radio-inline-label" for="soft">
-					  soft
-				  </label>
-				  <input id="normal" onChange={this.onEffectChange.bind(this, 'normal')} class="radio-inline-input" type="radio" name="accessible-radio" value="normal" checked={this.state.effect === 'normal'} />
-				  <label class="radio-inline-label" for="normal">
-					  normal
-				  </label>
-				  </fieldset>
-			  <div id="toast"></div>
+    <div class="topSection" style={{height: topHeight+"px"}}>  
+                <div class="top-flex-container"> 
+              <div class="left-section"> 
+              <h4 id='title'>Note Durations</h4>
+              <table>
+                <tbody>
+                  {this.renderNoteDurationsButtonsTable()}
+               </tbody>
+              </table>
+              </div>
+              <div class="center-section">B </div>
+              <div class="right-section"> 
+                <button onClick={this.onPlayButtonClicked.bind(this)} title="play- pause" id="play" class="button -salmon center">Play/Stop</button>
+                <button id="midi-btn" class="button -salmon center">MIDI Devices</button>
+              </div>          
+            </div>    
+    </div>
+    <div class="bottomSection" style={{height: bottomHeight+"px"}}>  
+    <div id = "synthContainer" >
+            <Keyboard height={bottomHeight} startWithOctave={this.state.startWithOctave} numberOfOctaves={this.state.numberOfOctaves} synth={this.state.synth}  midi={this.state.midi}/>
+          </div>    
         </div>
-      </div>
+    </div>
     );
   }
 }
