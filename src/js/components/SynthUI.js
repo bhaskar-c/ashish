@@ -38,7 +38,7 @@ export default class SynthUI extends React.Component {
     var synth = new Synth();
     
     InitMIDI(synth); // async call so it returns undefined until resolved
-    this.state = {'synth': synth, 'enableKeyBoard': true, effect:"normal", startWithOctave:startWithOctave, numberOfOctaves:numberOfOctaves, 'is_playing': false, screenHeight:0, screenWidth:0, selectedNoteDurationIndex: 0};
+    this.state = {'synth': synth, 'enableKeyBoard': true, effect:"normal", startWithOctave:startWithOctave, numberOfOctaves:numberOfOctaves, 'is_playing': false, screenHeight:0, screenWidth:0, selectedNoteDurationIndex: 3};
     this.topSection = null;
     this.bottomSection = null;
 
@@ -48,13 +48,30 @@ export default class SynthUI extends React.Component {
 
   }
   
+  onNoteDurationButtonClicked(e){
+    var currentDurationButton = document.getElementById("ndb"+this.state.selectedNoteDurationIndex);
+    currentDurationButton.classList.remove('note-duration-buttons-selected');
+    currentDurationButton.classList.add('note-duration-buttons');
+    e.target.classList.remove('note-duration-buttons');
+    e.target.classList.add('note-duration-buttons-selected');
+    this.state.selectedNoteDurationIndex = parseInt(e.target.getAttribute("data-index"));
+  }
+  
   renderNoteDurationsButtonsTable(){
     var noteDurations = ["1", "2", "3", "4", "5", "6", "7",  "8", "9", "10", "11", "12"]
+    var noteDurationsButtons = []
+    var noteButtonDimension = Math.floor(this.state.screenHeight*3/40)+ "px"; 
+    var buttonStyle = { width:noteButtonDimension, height:noteButtonDimension};
+    var tdStyleLeft = {paddingRight:"5px", width:noteButtonDimension, height:noteButtonDimension,}
+    var tdStyleRight = {paddingLeft:"5px", width:noteButtonDimension, height:noteButtonDimension,}
     var tableRows = [];
     for (var i = 0; i < noteDurations.length; i+=2) {
-    tableRows.push(<tr> 
-                <td><button  key={i}>{noteDurations[i]}</button></td>             
-                <td><button  key={i+1}>{noteDurations[i+1]}</button></td>
+     var klass1, klass2;
+     i == this.state.selectedNoteDurationIndex ? klass1 ="note-duration-buttons-selected": klass1 ="note-duration-buttons"
+     i+1 == this.state.selectedNoteDurationIndex ? klass2 ="note-duration-buttons-selected": klass2 ="note-duration-buttons"
+    tableRows.push(<tr style={{}}> 
+                <td style={tdStyleLeft}><button className={klass1} style={buttonStyle} onClick={this.onNoteDurationButtonClicked.bind(this)} id= {"ndb"+i} data-index={i}>{noteDurations[i]}</button></td>             
+                <td style={tdStyleRight}><button className={klass2} style={buttonStyle} onClick={this.onNoteDurationButtonClicked.bind(this)} id={"ndb"+(i+1)} data-index={i+1}>{noteDurations[i+1]}</button></td>
             </tr>);
     }
     return tableRows;
@@ -126,13 +143,13 @@ export default class SynthUI extends React.Component {
                 <div class="top-flex-container"> 
               <div class="left-section"> 
               <h4 id='title'>Note Durations</h4>
-              <table>
+              <table style={{height: "80%"}}>
                 <tbody>
                   {this.renderNoteDurationsButtonsTable()}
                </tbody>
               </table>
               </div>
-              <div class="center-section">B </div>
+              <div class="center-section"> Sa Re Ga Ma Pa Dha Ni Sa </div>
               <div class="right-section"> 
                 <button onClick={this.onPlayButtonClicked.bind(this)} title="play- pause" id="play" class="button -salmon center">Play/Stop</button>
                 <button id="midi-btn" class="button -salmon center">MIDI Devices</button>

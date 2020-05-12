@@ -11,15 +11,16 @@ html {
 body {
   margin: 0;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 14px;
+  font-size: 12px;
   line-height: 1.42857143;
-  color: #333333;
+  color: #5a500b;
   background: #171518;
   overflow: hidden;
 }
 
+	
 
-.topSection{background:#5f5f5f; color: #f1f1f1;}
+.topSection{}
 .bottomSection{ /* The height of this section is determined dynamically*/}
 #synthContainer { overflow-y: scroll;}
 
@@ -31,30 +32,82 @@ body {
     flex-wrap: wrap;
     justify-content: flex-start;
     align-content: stretch;
-    align-items: flex-start;
+    align-items: stretch;
+    height:100%;
     }
 
 .left-section {
-    background: #313196;
+    height:100%;
+    order: 0;
+    flex: 0 1 auto;
+    align-self: auto;
+    padding-left: 5px;
+    }
+
+.center-section {
+    height:100%;
+    order: 0;
+    flex: 1 1 auto;
+    align-self: auto;
+    padding: 20px;
+    margin-left: 20px;
+    border-left: 3px ridge #5a500b;
+	
+    }
+
+.right-section {
+    
+    height:100%;
     
     order: 0;
     flex: 0 1 auto;
     align-self: auto;
     }
 
-.center-section {
-    background: green;
-    order: 0;
-    flex: 1 1 auto;
-    align-self: auto;
-    }
+.note-duration-buttons {
+color: #FFF;
+    text-decoration: none;
+    margin: 0 auto;
+    border-radius: 5px;
+    border: solid 1px #5a500b;
+    background: #000000;
+    text-align: center;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    transition: all 0.5s;
+    -webkit-box-shadow: 0px 4px 2px #040303;
+    -moz-box-shadow: 0px 4px 2px #040303;
+    box-shadow: 0px 4px 2px #040303;
+}
 
-.right-section {
-    background: yellow;
-    order: 0;
-    flex: 0 1 auto;
-    align-self: auto;
-    }
+.note-duration-buttons:hover,
+.note-duration-buttons-selected {
+color: #f00;
+    text-decoration: none;
+    margin: 0 auto;
+    border-radius: 5px;
+    border: solid 1px #ffb000;
+    background: #000000;
+    text-align: center;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    transition: all 0.5s;
+    -webkit-box-shadow: 0px 4px 2px #1f0000;
+    -moz-box-shadow: 0px 4px 2px #1f0000;
+    box-shadow: 0px 4px 2px #1f0000;
+    font-weight: 800;
+    font-size: 110%;
+}
+
+
+
+
+.note-duration-buttons:focus, .note-duration-buttons.focus, .note-duration-buttons-selected:focus, .note-duration-buttons-selected.focus {
+    outline: none !important;
+    box-shadow: 0 0 0 0 rgba(0, 123, 255, 0) !importamt; 
+}
+
+
 
 
 
@@ -82,6 +135,7 @@ body {
   z-index: 1;
   background: #f5f5f5;
   border-top: 3px solid #170e01;
+  border-right: 1px solid #170e01;
   color: black;
   font-size: 75%;
   text-align: center;
@@ -103,11 +157,7 @@ body {
   border-width:0px 2px 7px;
   border-style:solid;
   border-color:#666 #222 #111 #333;
-  -webkit-box-shadow:inset 0px -1px 2px rgba(255,255,255,0.4),0 2px 3px rgba(0,0,0,0.4);
-  -moz-box-shadow:inset 0px -1px 2px rgba(255,255,255,0.4),0 2px 3px rgba(0,0,0,0.4);
-  box-shadow:inset 0px -1px 2px rgba(255,255,255,0.4),0 2px 3px rgba(0,0,0,0.4);
-  -webkit-border-radius:0 0 2px 2px;
-  -moz-border-radius:0 0 2px 2px;
+  box-shadow:inset 0px -1px 2px rgba(255,255,255,0.4),0 0px 1px rgba(0,0,0,0.4);
   border-radius:0 0 2px 2px;
   color: #fff;
   font-size: 75%;
