@@ -13,11 +13,13 @@ body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 12px;
   line-height: 1.42857143;
-  color: #5a500b;
+  color: #6f6d08;
   background: #171518;
   overflow: hidden;
 }
-
+.title{
+font-size: 80%;
+}
 	
 
 .topSection{}
@@ -41,7 +43,7 @@ body {
     order: 0;
     flex: 0 1 auto;
     align-self: auto;
-    padding-left: 5px;
+    padding: 5px;
     }
 
 .center-section {
@@ -49,9 +51,9 @@ body {
     order: 0;
     flex: 1 1 auto;
     align-self: auto;
-    padding: 20px;
-    margin-left: 20px;
-    border-left: 3px ridge #5a500b;
+    padding: 5px;
+      
+    border-left: 3px ridge #6f6d08;
 	
     }
 
@@ -67,11 +69,11 @@ body {
 .note-duration-buttons {
 color: #FFF;
     text-decoration: none;
-    margin: 0 auto;
-    border-radius: 5px;
-    border: solid 1px #5a500b;
-    background: #000000;
+    font-size:85%;
     text-align: center;
+    margin: 0 auto;
+    border: solid 1px #6f6d08;
+    background: #000000;
     -webkit-transition: all 0.5s;
     -moz-transition: all 0.5s;
     transition: all 0.5s;
@@ -82,10 +84,10 @@ color: #FFF;
 
 .note-duration-buttons:hover,
 .note-duration-buttons-selected {
-color: #f00;
+    color: #f00;
     text-decoration: none;
     margin: 0 auto;
-    border-radius: 5px;
+    
     border: solid 1px #ffb000;
     background: #000000;
     text-align: center;
@@ -96,7 +98,7 @@ color: #f00;
     -moz-box-shadow: 0px 4px 2px #1f0000;
     box-shadow: 0px 4px 2px #1f0000;
     font-weight: 800;
-    font-size: 110%;
+    font-size: 85%;
 }
 
 
@@ -206,7 +208,7 @@ color: #f00;
   
 }
 .button.-salmon {
-	background: #A7844A;
+	background: #6f6d08;
     color: #f0f0d0;
     border:none;
     text-shadow: 0 0 1px rgba(0,0,0,.7);  
@@ -413,5 +415,88 @@ bottom:0;
       border-top: 2px solid red;
 }
 
+.Dropdown-root {
+    position: relative;
+    background: #6f6d08;
+color: #f0f0d0;
+
+font-size: 75%;
+max-width: 150px;
+
+}
+
+.Dropdown-control {
+    position: relative;
+    overflow: hidden;
+    
+    border: solid 1px #6f6d08;
+    background: #000000;
+    box-shadow: 0px 2px 1px #040303;
+    color: #f0f0d0;
+    cursor: default;
+    outline: none;
+    padding: 5px 10px 4px 10px;
+    transition: all 200ms ease;
+}
+
+.Dropdown-arrow {
+	border-color: #fff transparent transparent;
+    border-style: solid;
+    border-width: 5px 5px 0;
+    content: ' ';
+    display: block;
+    height: 0;
+    margin-top: -ceil(2.5);
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width: 0;
+}
+
+.is-open .Dropdown-arrow {
+    border-color: transparent transparent #fff;
+    border-width: 0 5px 5px;
+}
+
+.Dropdown-title{
+color: #fff;
+font-weight: bold;
+padding: 10px;
+text-transform: capitalize;
+border-bottom: 1px solid red;
+}
 
 
+.Dropdown-menu {
+    background: #665b04;
+    color: #fff;
+    border: 1px solid #353009;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.06);
+    box-sizing: border-box;
+    margin-top: -1px;
+    max-height: 300px;
+    overflow-y: auto;
+    position: absolute;
+    top: 100%;
+    width: 100%;
+    z-index: 1000;
+    -webkit-overflow-scrolling: touch;
+}
+
+.Dropdown-option {
+    box-sizing: border-box;
+    color: rgba(251,251,251,0.8);
+    cursor: pointer;
+    display: block;
+    padding: 8px 10px;
+}
+
+.Dropdown-option:hover {
+  background-color: #554b00;
+  color: #eee;
+}
+
+.Dropdown-option.is-selected {
+  background-color: #554b00;
+  color: #eee;
+}
