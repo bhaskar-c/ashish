@@ -14,3 +14,9 @@ export default function showToast(message){
 	toast.className = "show";
 	setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 10500);
 	}
+  
+  
+  
+  function  noteNameFromNoteNumber(noteNumber){
+    return noteNumber + "dingo"
+    }

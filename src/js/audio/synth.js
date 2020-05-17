@@ -56,37 +56,6 @@ function Synth() {
 
 Synth.prototype = {
 	
-	changeEffect: function(id){
-		console.log(id)
-		id == 'soft' ? this.changeToSoft(): null
-		id == 'normal' ? this.changeToNormal(): null
-		id == 'reverb' ? this.changeToReverb(): null
-		},
-
-	changeToSoft: function(){
-			this.pianoGain.disconnect(this.compressorNode);
-			this.pianoGain.connect(this.convolverNode);
-			this.convolverNode.connect(this.compressorNode);
-		},
-
-	changeToNormal: function(){
-			this.pianoGain.connect(this.compressorNode);
-			this.pianoGain.disconnect(this.convolverNode);
-			this.convolverNode.disconnect(this.compressorNode);
-		},
-		
-	changeToReverb: function(){
-		 var delay = this.audioContext.createDelay();
-		 delay.delayTime.value = 0.25;
-		 
-		 
-		this.pianoGain.connect(delay);
-		delay.connect(this.compressorNode)
-    	this.pianoGain.connect(this.convolverNode);
-		this.pianoGain.connect(this.compressorNode);
-		this.convolverNode.connect(this.compressorNode);
-		},
-
 	addAllSamplesToBuffer: function(callback) {
 			var samples = pianoSoundSamples;
 			var self = this;

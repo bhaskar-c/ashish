@@ -6,6 +6,8 @@ import VerticalSlider from "./VerticalSlider"
 import Keyboard   from "./Keyboard"
 import Synth from '../audio/synth'
 import InitMIDI from './../audio/midi'
+//import noteNameFromNoteNumber from "../utils/utils"
+
 
 window.onorientationchange = function() { 
         var orientation = window.orientation; 
@@ -36,13 +38,17 @@ export default class SynthUI extends React.Component {
   constructor(props) {
     super(props);
     var synth = new Synth();
-    InitMIDI(synth); // async call so it returns undefined until resolved
-    this.state = {'synth': synth, 'enableKeyBoard': true, effect:"normal", startWithOctave:startWithOctave, numberOfOctaves:numberOfOctaves, 'is_playing': false, screenHeight:0, screenWidth:0, selectedNoteDurationIndex: 3, selectedMode: "Alaap"};
+    this.noteNameFromNoteNumber = this.noteNameFromNoteNumber.bind(this);
+    this.noteEventUIUpdater = this.noteEventUIUpdater.bind(this);  
+    InitMIDI(synth, this.noteEventUIUpdater, this.noteNameFromNoteNumber); // async call so it returns undefined until resolved
+    this.state = {'synth': synth, 'enableKeyBoard': true, effect:"normal", startWithOctave:startWithOctave, numberOfOctaves:numberOfOctaves, 'is_playing': false, screenHeight:0, screenWidth:0, selectedNoteDurationIndex: 3, selectedMode: "Alaap", transcript:""};
     this.modes = ["Alaap", "Teental", "Choutaal", "Roopak"]
     this.topSection = null;
     this.bottomSection = null;
     this.addOnKeyDownListener();
     this.addOnKeyUpListener();
+    this.noteEventUIUpdater = this.noteEventUIUpdater.bind(this)
+
   }
   
   onNoteDurationButtonClicked(e){
@@ -54,13 +60,15 @@ export default class SynthUI extends React.Component {
     this.state.selectedNoteDurationIndex = parseInt(e.target.getAttribute("data-index"));
   }
   
+
+
   renderNoteDurationsButtonsTable(){
     var noteDurations = ["1", "2", "3", "4", "5", "6", "7",  "8", "9", "10", "11", "12"]
     var noteDurationsButtons = []
     var noteButtonDimension = Math.floor(this.state.screenHeight*3/50)+ "px"; 
     var buttonStyle = { width:noteButtonDimension, height:noteButtonDimension};
-    var tdStyleLeft = {paddingRight:"3px", width:noteButtonDimension, height:noteButtonDimension,}
-    var tdStyleRight = {paddingLeft:"3px", width:noteButtonDimension, height:noteButtonDimension,}
+    var tdStyleLeft = {paddingBottom: "5px", paddingRight:"3px", width:noteButtonDimension, height:noteButtonDimension,}
+    var tdStyleRight = {paddingBottom: "5px", paddingLeft:"3px", width:noteButtonDimension, height:noteButtonDimension,}
     var tableRows = [];
     for (var i = 0; i < noteDurations.length; i+=2) {
      var klass1, klass2;
@@ -74,6 +82,12 @@ export default class SynthUI extends React.Component {
     return tableRows;
   }
     
+  noteEventUIUpdater(noteName){
+      console.log(noteName)
+      var new_val = this.state.transcript + " " + noteName;  
+      this.setState({transcript: new_val})
+  }
+
    
 
   componentWillMount(){
@@ -88,14 +102,26 @@ export default class SynthUI extends React.Component {
 	}
 
 
+  noteNameFromNoteNumber(noteNumber){
+    var octave =  Math.floor(noteNumber / 12) - 1;
+    var noteNameWithoutOctave = ["S", "r", "R", "g", "G", "M", "m", "P", "d", "D", "n", "N"][noteNumber%12];
+    var octaveSymbol =  ["'''","''", "'","","'","''", "'''"][octave]
+    if (octave < 3){return octaveSymbol+ noteNameWithoutOctave}
+    else{return noteNameWithoutOctave + octaveSymbol}
+    }
+
+
 	addOnKeyDownListener(){
 		var self = this
 		document.onkeydown = function(e){
-			e = e || window.event;
+      e = e || window.event;
 			var noteNumber = keyBinding[e.keyCode]
 			var velocity = 0.5
 			if(noteNumber){
 				self.state.synth.press(noteNumber, velocity)
+        var noteName = self.noteNameFromNoteNumber(noteNumber)
+        self.noteEventUIUpdater(noteName)
+        
 			}
 			};
 		}
@@ -133,24 +159,25 @@ onModeChange(e){
  this.selectedMode = e.value;
   
 }
-on4ButtonsPressed(){
+on4ButtonsPressed(e){
+  console.log(e);
   
   }
 
 renderFourButtons(){
-  var fourButtonDimension = Math.floor(this.state.screenHeight*3/50)+ "px"; 
+  var fourButtonDimension = Math.floor(this.state.screenHeight*3/45)+ "px"; 
     var buttonStyle = { width:fourButtonDimension, height:fourButtonDimension};
-    var tdStyleLeft = {paddingRight:"3px", width:fourButtonDimension, height:fourButtonDimension,}
-    var tdStyleRight = {paddingLeft:"3px", width:fourButtonDimension, height:fourButtonDimension,}
+    var tdStyleLeft = { paddingRight:"2px", width:fourButtonDimension, height:fourButtonDimension,}
+    var tdStyleRight = { paddingLeft:"2px", width:fourButtonDimension, height:fourButtonDimension,}
     var fourButtons = []
     fourButtons.push(
                  <tr>
-                  <td style={tdStyleLeft}><button className="note-duration-buttons" style={buttonStyle} onClick={this.on4ButtonsPressed.bind(this)}>Del</button></td>             
-                  <td style={tdStyleRight}><button className="note-duration-buttons" style={buttonStyle} onClick={this.on4ButtonsPressed.bind(this)}>Back</button></td>
+                  <td style={tdStyleLeft}><button className="note-duration-buttons" style={buttonStyle} onClick={this.on4ButtonsPressed.bind(this)}> Del </button></td>             
+                  <td style={tdStyleRight}><button className="note-duration-buttons" style={buttonStyle} onClick={this.on4ButtonsPressed.bind(this)}> B  </button></td>
                   </tr>
     )  
     fourButtons.push(              <tr>
-                  <td style={tdStyleLeft}><button className="note-duration-buttons" style={buttonStyle} onClick={this.on4ButtonsPressed.bind(this)}>C</button></td>             
+                  <td style={tdStyleLeft}><button className="note-duration-buttons" style={buttonStyle} onClick={this.on4ButtonsPressed.bind(this)}> C </button></td>             
                   <td style={tdStyleRight}><button className="note-duration-buttons" style={buttonStyle} onClick={this.on4ButtonsPressed.bind(this)}>R</button></td>
                   </tr>)
 return fourButtons;
@@ -160,37 +187,44 @@ return fourButtons;
   render() {
     var screenHeight = this.state.screenHeight;
     var topHeight = Math.floor(screenHeight*3/4); 
+    var notationHeight = Math.floor(topHeight -40) + "px";
+    var leftWidth = Math.floor((this.state.screenWidth*1/12)) + "px";
+    var centerWidth = Math.floor((this.state.screenWidth*10/12)- 50) + "px";
+    var rightWidth   =  leftWidth;
     var bottomHeight = Math.floor(screenHeight/4);
     var setVolume =   this.setVolume;    
     return (
       <div>
     <div class="topSection" style={{height: topHeight+"px"}}>  
-                <div class="top-flex-container"> 
-              <div class="left-section"> 
+              <div class="left-section" style={{width: leftWidth}}> 
               <span class='title'>Note Durations</span>
-              <table style={{height: "70%"}}>
+              <table>
                 <tbody>
                   {this.renderNoteDurationsButtonsTable()}
                </tbody>
               </table>
-               <table style={{height: "25%", borderTop:"1 px solid #f0f0d0"}}>
+              <div class="horizontal-line"></div>
+               <table style={{fontSize:"80%"}}>
                   {this.renderFourButtons()}
                 </table>
               </div>
-              <div class="center-section"> 
+              <div class="center-section" style={{width: centerWidth}}> 
                   <span class='title'>Select Mode</span>
                   <Dropdown title= "Select Mode" options={this.modes} onChange={this.onModeChange} value={this.modes[0]} placeholder="Select mode" />
+                  <div id="notation" style={{height: notationHeight, width:centerWidth}}>
+                    {this.state.transcript}
+                  </div>
                 
               </div>
-              <div class="right-section"> 
+              <div class="right-section" style={{width: rightWidth}}> 
                 <button onClick={this.onPlayButtonClicked.bind(this)} title="play- pause" id="play" class="button -salmon center">Play/Stop</button>
                 <button id="midi-btn" class="button -salmon center">MIDI Devices</button>
               </div>          
-            </div>    
+                
     </div>
     <div class="bottomSection" style={{height: bottomHeight+"px"}}>  
     <div id = "synthContainer" >
-            <Keyboard height={bottomHeight} startWithOctave={this.state.startWithOctave} numberOfOctaves={this.state.numberOfOctaves} synth={this.state.synth}  midi={this.state.midi}/>
+            <Keyboard height={bottomHeight} startWithOctave={this.state.startWithOctave} numberOfOctaves={this.state.numberOfOctaves} synth={this.state.synth}  midi={this.state.midi} noteEventUIUpdater={this.noteEventUIUpdater}  />
           </div>    
         </div>
     </div>

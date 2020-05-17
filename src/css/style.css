@@ -21,14 +21,19 @@ body {
 font-size: 80%;
 }
 	
+.horizontal-line{
+  border-top: 1px solid #6f6d08;
+  margin-top:7px;
+  margin-bottom:7px;
+  
+}
 
-.topSection{}
 .bottomSection{ /* The height of this section is determined dynamically*/}
 #synthContainer { overflow-y: scroll;}
 
 
 
-.top-flex-container {
+.topSection {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -40,37 +45,55 @@ font-size: 80%;
 
 .left-section {
     height:100%;
-    order: 0;
-    flex: 0 1 auto;
-    align-self: auto;
     padding: 5px;
+    -webkit-order: 0;
+    -ms-flex-order: 0;
+    order: 0;
+    -webkit-flex: 1 1 auto;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    -webkit-align-self: auto;
+    -ms-flex-item-align: auto;
+    align-self: auto;
     }
 
 .center-section {
     height:100%;
-    order: 0;
-    flex: 1 1 auto;
-    align-self: auto;
     padding: 5px;
-      
-    border-left: 3px ridge #6f6d08;
+    border-left: 1px solid #6f6d08;
+    -webkit-order: 0;
+    -ms-flex-order: 0;
+    order: 0;
+    -webkit-flex: 10 1 auto;
+    -ms-flex: 10 1 auto;
+    flex: 10 1 auto;
+    -webkit-align-self: auto;
+    -ms-flex-item-align: auto;
+    align-self: auto;
 	
     }
 
 .right-section {
     
     height:100%;
-    
+    -webkit-order: 0;
+    -ms-flex-order: 0;
     order: 0;
-    flex: 0 1 auto;
+    -webkit-flex: 1 1 auto;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    -webkit-align-self: auto;
+    -ms-flex-item-align: auto;
     align-self: auto;
     }
 
 .note-duration-buttons {
 color: #FFF;
     text-decoration: none;
+      cursor:pointer;
+
     font-size:85%;
-    text-align: center;
+    text-align: justify;
     margin: 0 auto;
     border: solid 1px #6f6d08;
     background: #000000;
@@ -87,10 +110,11 @@ color: #FFF;
     color: #f00;
     text-decoration: none;
     margin: 0 auto;
-    
+    cursor:pointer;
+
     border: solid 1px #ffb000;
     background: #000000;
-    text-align: center;
+    text-align: justify;
     -webkit-transition: all 0.5s;
     -moz-transition: all 0.5s;
     transition: all 0.5s;
@@ -141,7 +165,7 @@ color: #FFF;
   color: black;
   font-size: 75%;
   text-align: center;
-  padding: 10px 4px 0 8px;
+  padding: 15% 50% 0 0;
   
 }
 
@@ -499,4 +523,20 @@ border-bottom: 1px solid red;
 .Dropdown-option.is-selected {
   background-color: #554b00;
   color: #eee;
+}
+
+
+#notation{
+padding: 15px;
+background: #111;
+color: #fff;
+font-size: 120%;
+overflow-x: none; 
+overflow-y: auto; 
+white-space: pre-wrap;       /* css-3 */
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+    white-space: -webkit-pre-wrap; /* Newer versions of Chrome/Safari*/
+    word-break: break-all;
+    white-space: normal;
+
 }
