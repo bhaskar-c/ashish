@@ -540,3 +540,16 @@ white-space: pre-wrap;       /* css-3 */
     white-space: normal;
 
 }
+
+#simple-board{
+border: 1px solid red;
+color: #fff;
+}
+
+.tcell{
+padding:5px;
+height:30px;
+min-width: 50px;
+border-right: 1px solid red;
+border-bottom: 1px solid red;
+}

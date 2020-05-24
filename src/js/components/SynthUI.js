@@ -4,6 +4,7 @@ import Dropdown from 'react-dropdown'
 
 import VerticalSlider from "./VerticalSlider"
 import Keyboard   from "./Keyboard"
+import TaalTable   from "./TaalTable"
 import Synth from '../audio/synth'
 import InitMIDI from './../audio/midi'
 //import noteNameFromNoteNumber from "../utils/utils"
@@ -41,7 +42,9 @@ export default class SynthUI extends React.Component {
     this.noteNameFromNoteNumber = this.noteNameFromNoteNumber.bind(this);
     this.noteEventUIUpdater = this.noteEventUIUpdater.bind(this);  
     InitMIDI(synth, this.noteEventUIUpdater, this.noteNameFromNoteNumber); // async call so it returns undefined until resolved
-    this.state = {'synth': synth, 'enableKeyBoard': true, effect:"normal", startWithOctave:startWithOctave, numberOfOctaves:numberOfOctaves, 'is_playing': false, screenHeight:0, screenWidth:0, selectedNoteDurationIndex: 3, selectedMode: "Alaap", transcript:""};
+    this.state = {'synth': synth, 'enableKeyBoard': true, effect:"normal", startWithOctave:startWithOctave, numberOfOctaves:numberOfOctaves, 'is_playing': false, screenHeight:0, screenWidth:0, selectedNoteDurationIndex: 3, selectedMode: "Alaap", alaap_transcript:"", 
+      taal_transcript: [],
+      };
     this.modes = ["Alaap", "Teental", "Choutaal", "Roopak"]
     this.topSection = null;
     this.bottomSection = null;
@@ -60,8 +63,6 @@ export default class SynthUI extends React.Component {
     this.state.selectedNoteDurationIndex = parseInt(e.target.getAttribute("data-index"));
   }
   
-
-
   renderNoteDurationsButtonsTable(){
     var noteDurations = ["1", "2", "3", "4", "5", "6", "7",  "8", "9", "10", "11", "12"]
     var noteDurationsButtons = []
@@ -82,24 +83,10 @@ export default class SynthUI extends React.Component {
     return tableRows;
   }
     
-  noteEventUIUpdater(noteName){
-      console.log(noteName)
-      var new_val = this.state.transcript + " " + noteName;  
-      this.setState({transcript: new_val})
-  }
-
-   
 
   componentWillMount(){
           this.setState({screenHeight: window.innerHeight, screenWidth:window.innerWidth});
       }
-
-
-	onEffectChange(id){
-	   this.setState({effect: id});
-	   this.state.synth.changeEffect(id);
-	   //this.setState({synth: this.state.synth});
-	}
 
 
   noteNameFromNoteNumber(noteNumber){
@@ -155,8 +142,57 @@ export default class SynthUI extends React.Component {
 	 }	
 
 
+ renderTaalTable(idName, numCols){
+   //TaalTable = React.Component[TaalTable]
+    return <TaalTable />;
+  }
+    
+
+  noteEventUIUpdater(noteName){
+    if(this.state.selectedMode  == "Alaap"){
+      var new_val = this.state.alaap_transcript + " " + noteName;  
+      this.setState({alaap_transcript: new_val})
+    }
+    else{ // other taals
+      let temp_arr = this.state.taal_transcript[this.state.taal_transcript.length - 1][this.state.selectedMode];
+      let numberOfItemsToPushInThisArray = this.state.selectedNoteDurationIndex + 1;
+        //if (temp_arr.length == 0){
+           //       temp_arr.push([noteName])
+          //}
+      
+      let lastArrayInTempArray = temp_arr[temp_arr.length-1]
+        let isThisFirstNoteOfTheMode =  typeof lastArrayInTempArray == "undefined"
+      if  ( !isThisFirstNoteOfTheMode &&  lastArrayInTempArray.length <  numberOfItemsToPushInThisArray){
+        // we have space for more notes here so push this note in there
+          temp_arr[temp_arr.length-1].push(noteName)
+        }else {
+          //push to a new array if first note or if last array exhausted  
+            temp_arr.push([noteName])
+          
+          }
+      
+      
+      this.state.taal_transcript[this.state.taal_transcript.length - 1][this.state.selectedMode] = temp_arr
+      //this.setState({taal_transcript[taal_transcript.length - 1][selectedMode]:temp_arr})
+      console.log(this.state.taal_transcript)
+      
+      
+      }
+  }
+
+
+
 onModeChange(e){
- this.selectedMode = e.value;
+ this.setState({selectedMode:e.value})
+ let temp = this.state.taal_transcript
+ let obj = {}
+ obj[e.value] = []
+ temp.push(obj)
+ this.setState({taal_transcript:temp})
+ //var table = this.renderTaalTable("tonga", 13)
+ //var new_val = this.state.alaap_transcript + " " + table;  
+ //this.setState({alaap_transcript: new_val})
+ 
   
 }
 on4ButtonsPressed(e){
@@ -184,6 +220,7 @@ return fourButtons;
 
 }
 
+  
   render() {
     var screenHeight = this.state.screenHeight;
     var topHeight = Math.floor(screenHeight*3/4); 
@@ -210,9 +247,11 @@ return fourButtons;
               </div>
               <div class="center-section" style={{width: centerWidth}}> 
                   <span class='title'>Select Mode</span>
-                  <Dropdown title= "Select Mode" options={this.modes} onChange={this.onModeChange} value={this.modes[0]} placeholder="Select mode" />
+                  <Dropdown title= "Select Mode" options={this.modes} onChange={this.onModeChange.bind(this)} value={this.modes[0]} placeholder="Select mode" />
                   <div id="notation" style={{height: notationHeight, width:centerWidth}}>
-                    {this.state.transcript}
+                    {this.state.alaap_transcript}
+                    <TaalTable matras={16}  />    
+                    
                   </div>
                 
               </div>
