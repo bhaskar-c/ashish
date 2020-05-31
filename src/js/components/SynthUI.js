@@ -142,9 +142,15 @@ export default class SynthUI extends React.Component {
 	 }	
 
 
- renderTaalTable(idName, numCols){
-   //TaalTable = React.Component[TaalTable]
-    return <TaalTable />;
+
+
+ renderAllTaalTables(idName, numCols){
+   let tables = []
+   for (var i = 0; i < this.state.taal_transcript.length; i++){ 
+     var taalName = Object.keys(this.state.taal_transcript[i])[0];
+         tables.push(<TaalTable taalName={taalName} transcript={this.state.taal_transcript[i]}  /> )  
+}   
+    return tables 
   }
     
 
@@ -172,9 +178,13 @@ export default class SynthUI extends React.Component {
           }
       
       
-      this.state.taal_transcript[this.state.taal_transcript.length - 1][this.state.selectedMode] = temp_arr
+      var temp2 = this.state.taal_transcript
+      temp2[this.state.taal_transcript.length - 1][this.state.selectedMode] = temp_arr
       //this.setState({taal_transcript[taal_transcript.length - 1][selectedMode]:temp_arr})
-      console.log(this.state.taal_transcript)
+     this.setState({taal_transcript:temp2});
+ 
+      //console.log(this.state.taal_transcript)
+     // this.forceUpdate();
       
       
       }
@@ -250,9 +260,9 @@ return fourButtons;
                   <Dropdown title= "Select Mode" options={this.modes} onChange={this.onModeChange.bind(this)} value={this.modes[0]} placeholder="Select mode" />
                   <div id="notation" style={{height: notationHeight, width:centerWidth}}>
                     {this.state.alaap_transcript}
-                    <TaalTable matras={16}  />    
-                    
-                  </div>
+                    {this.renderAllTaalTables()}
+                   </div> 
+                 
                 
               </div>
               <div class="right-section" style={{width: rightWidth}}> 
