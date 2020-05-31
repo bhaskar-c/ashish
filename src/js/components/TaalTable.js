@@ -13,26 +13,32 @@ export default class TaalTable extends Component {
   }
   
   
-  render(){
+  renderTableRows(){
     let rows = [];
     let matras = taalMatras[this.state.taalName]
-    for (var i = 0; i < 1; i++){
+    let numberOfRows =   (this.state.transcript[this.state.taalName].length %  matras) + 1
+    for (var i = 0; i < numberOfRows; i++){
       let rowID = `row${i}`
       let cell = []
       for (var idx = 0; idx < matras; idx++){
         let cellID = `cell${i}-${idx}`
-        cell.push(<td class="tcell" key={cellID} id={cellID}>{this.state.transcript[idx]}</td>)
+        cell.push(<td class="tcell" key={cellID} id={cellID}>{this.state.transcript[this.state.taalName][i+idx]}</td>)
       }
       rows.push(<tr key={i} id={rowID}>{cell}</tr>)
     }
-    return(
+     return rows;
+    }
+  
+ 
+  render(){
+     return(
       <div className="container">
         <h2>{this.state.taalName}</h2>
         <div className="row">
           <div className="col s12 board">
             <table id="simple-board">
                <tbody>
-                 {rows}
+                 {this.renderTableRows()}
                </tbody>
              </table>
           </div>

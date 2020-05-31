@@ -144,11 +144,11 @@ export default class SynthUI extends React.Component {
 
 
 
- renderAllTaalTables(idName, numCols){
+ renderAllTaalTables(taalTranscript){
    let tables = []
-   for (var i = 0; i < this.state.taal_transcript.length; i++){ 
-     var taalName = Object.keys(this.state.taal_transcript[i])[0];
-         tables.push(<TaalTable taalName={taalName} transcript={this.state.taal_transcript[i]}  /> )  
+   for (var i = 0; i < taalTranscript.length; i++){ 
+     var taalName = Object.keys(taalTranscript[i])[0];
+         tables.push(<TaalTable taalName={taalName} transcript={taalTranscript[i]}  /> )  
 }   
     return tables 
   }
@@ -182,9 +182,7 @@ export default class SynthUI extends React.Component {
       temp2[this.state.taal_transcript.length - 1][this.state.selectedMode] = temp_arr
       //this.setState({taal_transcript[taal_transcript.length - 1][selectedMode]:temp_arr})
      this.setState({taal_transcript:temp2});
- 
-      //console.log(this.state.taal_transcript)
-     // this.forceUpdate();
+
       
       
       }
@@ -232,6 +230,7 @@ return fourButtons;
 
   
   render() {
+    var taalTranscript = this.state.taal_transcript;
     var screenHeight = this.state.screenHeight;
     var topHeight = Math.floor(screenHeight*3/4); 
     var notationHeight = Math.floor(topHeight -40) + "px";
@@ -260,7 +259,7 @@ return fourButtons;
                   <Dropdown title= "Select Mode" options={this.modes} onChange={this.onModeChange.bind(this)} value={this.modes[0]} placeholder="Select mode" />
                   <div id="notation" style={{height: notationHeight, width:centerWidth}}>
                     {this.state.alaap_transcript}
-                    {this.renderAllTaalTables()}
+                    {this.renderAllTaalTables(taalTranscript)}
                    </div> 
                  
                 
