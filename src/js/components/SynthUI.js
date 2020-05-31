@@ -45,7 +45,7 @@ export default class SynthUI extends React.Component {
     this.state = {'synth': synth, 'enableKeyBoard': true, effect:"normal", startWithOctave:startWithOctave, numberOfOctaves:numberOfOctaves, 'is_playing': false, screenHeight:0, screenWidth:0, selectedNoteDurationIndex: 3, selectedMode: "Alaap", alaap_transcript:"", 
       taal_transcript: [],
       };
-    this.modes = ["Alaap", "Teental", "Choutaal", "Roopak"]
+    this.modes = ["Alaap", "Teental", "Choutaal", "Roopak","Choutaal", "Ektaal", "Jhaptaal", "Keherwa", "Dadra" ]
     this.topSection = null;
     this.bottomSection = null;
     this.addOnKeyDownListener();

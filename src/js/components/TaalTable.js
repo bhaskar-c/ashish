@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 //matra
-const taalMatras = {"Teental": 13, "Roopak": 7, "Choutaal": 10}
+const taalMatras = {"Teental": 16, "Roopak": 7, "Choutaal": 12, "Ektaal":12, "Jhaptaal":10, "Keherwa":8, "Dadra": 6 }
 
 
 
@@ -16,16 +16,25 @@ export default class TaalTable extends Component {
   renderTableRows(){
     let rows = [];
     let matras = taalMatras[this.state.taalName]
-    let numberOfRows =   (this.state.transcript[this.state.taalName].length %  matras) + 1
-    for (var i = 0; i < numberOfRows; i++){
-      let rowID = `row${i}`
+    let outArrayLength = this.state.transcript[this.state.taalName].length
+    let numberOfRows =  Math.floor(outArrayLength /  matras) + 1
+     console.log(numberOfRows)
+    for (var row = 0; row < numberOfRows; row++){
+      
+      let rowID = `row${row}`
       let cell = []
-      for (var idx = 0; idx < matras; idx++){
-        let cellID = `cell${i}-${idx}`
-        cell.push(<td class="tcell" key={cellID} id={cellID}>{this.state.transcript[this.state.taalName][i+idx]}</td>)
+      for (var col = 0; col < matras; col++){
+        let cellID = `cell${row}-${col}`
+        let itemIndex = (row * matras) + col
+        var cellContent = ""
+        if (itemIndex < outArrayLength) {
+          cellContent =  this.state.transcript[this.state.taalName][itemIndex]
+          }
+        cell.push(<td class="tcell" key={cellID} id={cellID}>{cellContent}</td>)
       }
-      rows.push(<tr key={i} id={rowID}>{cell}</tr>)
+      rows.push(<tr>{cell}</tr>)
     }
+     console.log(rows)
      return rows;
     }
   
