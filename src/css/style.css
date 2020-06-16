@@ -28,9 +28,8 @@ font-size: 80%;
   
 }
 
-.bottomSection{ /* The height of this section is determined dynamically*/}
-#synthContainer { overflow-y: scroll;}
 
+#keyboardContainer { overflow-y: scroll;}
 
 
 .topSection {
@@ -87,11 +86,10 @@ font-size: 80%;
     align-self: auto;
     }
 
-.note-duration-buttons {
-color: #FFF;
+.note-duration-buttons{
+    color: #FFF;
     text-decoration: none;
-      cursor:pointer;
-
+    cursor:pointer;
     font-size:85%;
     text-align: justify;
     margin: 0 auto;
@@ -106,7 +104,8 @@ color: #FFF;
 }
 
 .note-duration-buttons:hover,
-.note-duration-buttons-selected {
+.note-duration-buttons-selected
+ {
     color: #f00;
     text-decoration: none;
     margin: 0 auto;
@@ -126,8 +125,73 @@ color: #FFF;
 }
 
 
+#bottomSection{
+   display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0px;
+}
+.comma-img, .fullstop-img{
+ padding:5px;
+ width: 10px; 
+ height: 10px;
+ 
+}
 
+.continue-img,
+.rest-img
+{
+ width: 20px; 
+ height: 20px;
+}
 
+.copy-img
+ {
+ width: 30px; 
+ height: 30px;
+}
+
+.bottom-buttons {
+width: 40px;
+height:40px;
+margin: 5px 20px;
+color: #FFF;
+    text-decoration: none;
+    cursor:pointer;
+    font-size:85%;
+    text-align: justify;
+    margin: 0 auto;
+    border: solid 1px #6f6d08;
+    background: #000000;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    transition: all 0.5s;
+    -webkit-box-shadow: 0px 4px 2px #040303;
+    -moz-box-shadow: 0px 4px 2px #040303;
+    box-shadow: 0px 4px 2px #040303;
+
+}
+
+.bottom-buttons:hover,
+.bottom-buttons-selected
+ {
+    color: #f00;
+    text-decoration: none;
+    margin: 0 auto;
+    cursor:pointer;
+
+    border: solid 1px #ffb000;
+    background: #000000;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    transition: all 0.5s;
+    -webkit-box-shadow: 0px 4px 2px #1f0000;
+    -moz-box-shadow: 0px 4px 2px #1f0000;
+    box-shadow: 0px 4px 2px #1f0000;
+    
+}
+
+.bottom-buttons:focus, .bottom-buttons.focus, .bottom-buttons-selected:focus, .bottom-buttons-selected,
 .note-duration-buttons:focus, .note-duration-buttons.focus, .note-duration-buttons-selected:focus, .note-duration-buttons-selected.focus {
     outline: none !important;
     box-shadow: 0 0 0 0 rgba(0, 123, 255, 0) !importamt; 
