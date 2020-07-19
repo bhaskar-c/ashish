@@ -41,6 +41,8 @@ class BottomSection extends Component {
   
   
   onPrintToPDFButtonPressed(){
+    // to do include css
+    //https://stackoverflow.com/a/50200383/2348704
     var contentToPrint = document.getElementById('notation').innerHTML;
     contentToPrint = contentToPrint.replace(/(<!--.*?-->)|(<!--[\S\s]+?-->)|(<!--[\S\s]*?$)/g,''); // remove all html comments
     let mywindow = window.open('', 'PRINT', 'height=650,width=900,top=100,left=150');

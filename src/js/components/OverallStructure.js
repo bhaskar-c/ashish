@@ -200,6 +200,7 @@ export default class OverallStructure extends React.Component {
     var self = this;
     document.onkeydown = function (e) {
       e = e || window.event;
+      console.log(e.keyCode);
       var noteNumber = keyBinding[e.keyCode];
       var velocity = 0.5;
       if (noteNumber) {
