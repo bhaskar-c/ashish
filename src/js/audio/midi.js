@@ -4,7 +4,7 @@ var MIDI_TRANSPOSE = -12;
 
 
 
-export default function InitMIDI(synth, noteEventUIUpdater, noteNameFromNoteNumber) {
+export default function InitMIDI(synth, noteEventUIUpdater) {
 
   if (navigator.requestMIDIAccess) {
     navigator.requestMIDIAccess().then(function(midi) {
@@ -20,8 +20,7 @@ export default function InitMIDI(synth, noteEventUIUpdater, noteNameFromNoteNumb
           synth.release(note_number);
         } else if (cmd == 9) {
           synth.press(note_number, vel / 100);
-          var noteName = noteNameFromNoteNumber(note_number);
-          noteEventUIUpdater(noteName);
+          noteEventUIUpdater(note_number, vel/100);
 
          } 
 

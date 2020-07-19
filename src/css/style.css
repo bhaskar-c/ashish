@@ -594,7 +594,7 @@ border-bottom: 1px solid red;
 padding: 15px;
 background: #111;
 color: #fff;
-font-size: 120%;
+font-size: 90%;
 overflow-x: none; 
 overflow-y: auto; 
 white-space: pre-wrap;       /* css-3 */
@@ -605,15 +605,53 @@ white-space: pre-wrap;       /* css-3 */
 
 }
 
-#simple-board{
-border: 1px solid red;
-color: #fff;
+.taal_table{
+      position: relative;
 }
 
-.tcell{
-padding:5px;
-height:30px;
-min-width: 50px;
-border-right: 1px solid red;
-border-bottom: 1px solid red;
+#Keherwa > tbody > tr > td,
+#Jhaptaal > tbody > tr > td,
+#Ektaal > tbody > tr > td,
+#Roopak > tbody > tr > td,
+#Choutaal > tbody > tr > td,
+#Teental > tbody > tr > td{
+  min-width:30px;
+  border-right:1px solid #353535;
+  padding:5px;
+  margin:4px;
 }
+
+#Teental > tbody > tr > td:nth-child(4),
+#Teental > tbody > tr > td:nth-child(8),
+#Teental > tbody > tr > td:nth-child(12),
+#Teental > tbody > tr > td:nth-child(16),
+#Choutaal > tbody > tr > td:nth-child(2),
+#Choutaal > tbody > tr > td:nth-child(4),
+#Choutaal > tbody > tr > td:nth-child(6),
+#Choutaal > tbody > tr > td:nth-child(8),
+#Choutaal > tbody > tr > td:nth-child(10),
+#Choutaal > tbody > tr > td:nth-child(12),
+#Roopak > tbody > tr > td:nth-child(8),
+#Roopak > tbody > tr > td:nth-child(12),
+#Roopak > tbody > tr > td:nth-child(16),
+#Ektaal > tbody > tr > td:nth-child(2),
+#Ektaal > tbody > tr > td:nth-child(4),
+#Ektaal > tbody > tr > td:nth-child(6),
+#Ektaal > tbody > tr > td:nth-child(8),
+#Ektaal > tbody > tr > td:nth-child(10),
+#Ektaal > tbody > tr > td:nth-child(12),
+#Jhaptaal > tbody > tr > td:nth-child(2),
+#Jhaptaal > tbody > tr > td:nth-child(5),
+#Jhaptaal > tbody > tr > td:nth-child(7),
+#Jhaptaal > tbody > tr > td:nth-child(10),
+#Keherwa > tbody > tr > td:nth-child(4),
+#Keherwa > tbody > tr > td:nth-child(8),
+#Dadra > tbody > tr > td:nth-child(3),
+#Dadra > tbody > tr > td:nth-child(6)
+
+{
+  border-right:2px solid #e5e5e5;
+}
+
+
+

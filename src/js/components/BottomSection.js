@@ -12,13 +12,14 @@ class BottomSection extends Component {
   }
 
   onButtonPressed(id) {
+    let defaultVelocity = 127;
     if (id == "-" || id == "X") {
-      this.parent.noteEventUIUpdater(id);
+      this.parent.noteEventUIUpdater(id, defaultVelocity);
       return;
     }
     if (id == "," || id == ".") {
     if (this.parent.getCurrentMode() == "Alaap"){
-         this.parent.noteEventUIUpdater(id);
+         this.parent.noteEventUIUpdater(id, defaultVelocity);
        }  
     }
   }
@@ -56,8 +57,6 @@ class BottomSection extends Component {
     mywindow.close();
     return true;
   }
-  
-  
   
 
   render(){

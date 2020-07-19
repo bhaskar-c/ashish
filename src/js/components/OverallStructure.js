@@ -22,51 +22,33 @@ window.onorientationchange = function () {
 };
 
 var keyBinding = { 
-		90: 33, 88: 35, 67: 36, 86: 38, 66: 40, 78: 41, 77:43, 188:45, 190:	47, 191:48,
-	    65: 32, 83:34, 70:37, 71:39, 74:42, 75:44, 76:46, 222:49 ,
-	    81:45, 87: 47, 69:48, 82:50, 84:52, 89:53, 85:55, 73:57, 79:59, 80:60, 219:62, 221:64,
-		49:44, 50:46, 52:49, 53:51, 55:54, 56:56, 57:58, 189:61, 187:63}
+		9:31, 192:32, 81:33, 65:34, 87:35, 83:36, 69:37, 68:38, 82:39, 70:40, 71:41, 89:42, 72:43, 85:44, 74:45, 81:46, 65:47, 76:48, 80:49, 186:50, 219:51, 
+222:52, 221:53, 220:54
+}
     
 var numberOfOctaveToStartWithOctaveMapping = { 5: 2, 4: 3, 3: 3, 2: 4, 1: 4 };
 var widthOfOneKey = 80;
 var screenRealEstateAvailable = window.screen.width;
 var numberOfkeys = 84;
-var numberOfOctaves = 7;
-var startWithOctave = 0;
+
 
 export default class OverallStructure extends React.Component {
   
   constructor(props) {
     super(props);
     var synth = new Synth();
-    this.noteNameFromNoteNumber = this.noteNameFromNoteNumber.bind(this);
     this.noteEventUIUpdater = this.noteEventUIUpdater.bind(this);
-    InitMIDI(synth, this.noteEventUIUpdater, this.noteNameFromNoteNumber); // async call so it returns undefined until resolved
+    InitMIDI(synth, this.noteEventUIUpdater); // async call so it returns undefined until resolved
     this.state = {
+      saOffset: 1, //sa coresponds to note C  // nt implemented further
       synth: synth,
-      enableKeyBoard: true,
-      effect: "normal",
-      startWithOctave: startWithOctave,
-      numberOfOctaves: numberOfOctaves,
-      is_playing: false,
       screenHeight: 0,
       screenWidth: 0,
       selectedNoteDurationIndex: 0,
       selectedMode: "Alaap",
-      alaap_transcript: "",
-      taal_transcript: [],
+      transcript: [],
     };
-    this.modes = [
-      "Alaap",
-      "Teental",
-      "Choutaal",
-      "Roopak",
-      "Choutaal",
-      "Ektaal",
-      "Jhaptaal",
-      "Keherwa",
-      "Dadra",
-    ];
+    this.modes = ["Alaap", "Teental", "Choutaal", "Roopak", "Choutaal", "Ektaal", "Jhaptaal", "Keherwa", "Dadra", ];
     this.topSection = null;
     this.bottomSection = null;
     this.addOnKeyDownListener();
@@ -80,9 +62,7 @@ export default class OverallStructure extends React.Component {
 
 
   onNoteDurationButtonClicked(e) {
-    var currentDurationButton = document.getElementById(
-      "ndb" + this.state.selectedNoteDurationIndex
-    );
+    var currentDurationButton = document.getElementById("ndb" + this.state.selectedNoteDurationIndex);
     currentDurationButton.classList.remove("note-duration-buttons-selected");
     currentDurationButton.classList.add("note-duration-buttons");
     e.target.classList.remove("note-duration-buttons");
@@ -93,39 +73,13 @@ export default class OverallStructure extends React.Component {
   }
 
   renderNoteDurationsButtonsTable() {
-    var noteDurations = [
-      "1",
-      "2",
-      "3",
-      "4",
-      "5",
-      "6",
-      "7",
-      "8",
-      "9",
-      "10",
-      "11",
-      "12",
-    ];
+    var noteDurations = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12",];
     var noteDurationsButtons = [];
     var noteButtonDimension =
       Math.floor((this.state.screenHeight * 3) / 50) + "px";
-    var buttonStyle = {
-      width: noteButtonDimension,
-      height: noteButtonDimension,
-    };
-    var tdStyleLeft = {
-      paddingBottom: "5px",
-      paddingRight: "3px",
-      width: noteButtonDimension,
-      height: noteButtonDimension,
-    };
-    var tdStyleRight = {
-      paddingBottom: "5px",
-      paddingLeft: "3px",
-      width: noteButtonDimension,
-      height: noteButtonDimension,
-    };
+    var buttonStyle = { width: noteButtonDimension,  height: noteButtonDimension,  };
+    var tdStyleLeft = { paddingBottom: "5px", paddingRight: "3px", width: noteButtonDimension,  height: noteButtonDimension, };
+    var tdStyleRight = { paddingBottom: "5px", paddingLeft: "3px", width: noteButtonDimension,  height: noteButtonDimension, };
     var tableRows = [];
     for (var i = 0; i < noteDurations.length; i += 2) {
       var klass1, klass2;
@@ -138,24 +92,12 @@ export default class OverallStructure extends React.Component {
       tableRows.push(
         <tr style={{}}>
           <td style={tdStyleLeft}>
-            <button
-              className={klass1}
-              style={buttonStyle}
-              onClick={this.onNoteDurationButtonClicked.bind(this)}
-              id={"ndb" + i}
-              data-index={i}
-            >
+            <button className={klass1} style={buttonStyle} onClick={this.onNoteDurationButtonClicked.bind(this)} id={"ndb" + i} data-index={i} >
               {noteDurations[i]}
             </button>
           </td>
           <td style={tdStyleRight}>
-            <button
-              className={klass2}
-              style={buttonStyle}
-              onClick={this.onNoteDurationButtonClicked.bind(this)}
-              id={"ndb" + (i + 1)}
-              data-index={i + 1}
-            >
+            <button className={klass2} style={buttonStyle} onClick={this.onNoteDurationButtonClicked.bind(this)} id={"ndb" + (i + 1)} data-index={i + 1}>
               {noteDurations[i + 1]}
             </button>
           </td>
@@ -172,41 +114,17 @@ export default class OverallStructure extends React.Component {
     });
   }
 
-  noteNameFromNoteNumber(noteNumber) {
-    var octave = Math.floor(noteNumber / 12) - 1;
-    var noteNameWithoutOctave = [
-      "S",
-      "r",
-      "R",
-      "g",
-      "G",
-      "M",
-      "m",
-      "P",
-      "d",
-      "D",
-      "n",
-      "N",
-    ][noteNumber % 12];
-    var octaveSymbol = ["'''", "''", "'", "", "'", "''", "'''"][octave];
-    if (octave < 3) {
-      return octaveSymbol + noteNameWithoutOctave;
-    } else {
-      return noteNameWithoutOctave + octaveSymbol;
-    }
-  }
 
   addOnKeyDownListener() {
     var self = this;
     document.onkeydown = function (e) {
       e = e || window.event;
-      console.log(e.keyCode);
+      //console.log(e.keyCode);
       var noteNumber = keyBinding[e.keyCode];
       var velocity = 0.5;
       if (noteNumber) {
         self.state.synth.press(noteNumber, velocity);
-        var noteName = self.noteNameFromNoteNumber(noteNumber);
-        self.noteEventUIUpdater(noteName);
+        self.noteEventUIUpdater(noteNumber, velocity);
       }
     };
   }
@@ -237,66 +155,63 @@ export default class OverallStructure extends React.Component {
     return false;
   }
 
-  renderAllTaalTables(taalTranscript) {
+  renderAllTaalTables(transcript) {
     let tables = [];
-    for (var i = 0; i < taalTranscript.length; i++) {
-      var taalName = Object.keys(taalTranscript[i])[0];
+    for (var i = 0; i < transcript.length; i++) {
+      var taalName = Object.keys(transcript[i])[0];
       tables.push(
-        <TaalTable taalName={taalName} transcript={taalTranscript[i]} />
+        <TaalTable taalName={taalName} transcript={transcript[i]} />
       );
     }
     return tables;
   }
 
-  noteEventUIUpdater(noteName) {
-    if (this.state.selectedMode == "Alaap") {
-      var new_val = this.state.alaap_transcript + " " + noteName;
-      this.setState({ alaap_transcript: new_val });
-    } else {
-      // other taals
-
-      let temp_arr = this.state.taal_transcript[
-        this.state.taal_transcript.length - 1
-      ][this.state.selectedMode];
-      let numberOfItemsToPushInThisArray =
-        this.state.selectedNoteDurationIndex + 1;
-      //if (temp_arr.length == 0){
-      //       temp_arr.push([noteName])
-      //}
-
+  noteEventUIUpdater(noteNumber, velocity) {
+     if (this.state.transcript.length == 0){
+       let obj = {};
+       obj[this.state.selectedMode] = [];
+      this.state.transcript.push(obj);
+        
+        }
+      let temp_arr = this.state.transcript[this.state.transcript.length - 1][this.state.selectedMode];
+      let numberOfItemsToPushInThisArray = this.state.selectedNoteDurationIndex + 1;
+      let selectedNoteDuration = this.state.selectedNoteDurationIndex + 1;
+      let ragSpecificPitchBendInfo = 0.0; //todo left here as a placeholder
+      let approach = 0.0; //todo left here as a placeholder
+      let articulation = 1; // 1 for normal, 0 for rest and 2 for continuation
+      if (noteNumber == "-") {  // continued note
+        articulation = 2;  }
+      if (noteNumber == "X") {  // rest note
+        articulation = 0;  }                 
       let lastArrayInTempArray = temp_arr[temp_arr.length - 1];
+      if (this.state.selectedMode == "Alaap") { selectedNoteDuration = 1;  }
       let isThisFirstNoteOfTheMode = typeof lastArrayInTempArray == "undefined";
-      if (
-        !isThisFirstNoteOfTheMode &&
-        lastArrayInTempArray.length < numberOfItemsToPushInThisArray
-      ) {
+      if (this.state.selectedMode == "Alaap"){
+            //push every note to a new array as noteduration is taken as 1
+        temp_arr.push([[noteNumber, velocity, selectedNoteDuration, ragSpecificPitchBendInfo,approach, articulation ]]);
+        }
+      else if ( !isThisFirstNoteOfTheMode && lastArrayInTempArray.length < numberOfItemsToPushInThisArray ) {
         // we have space for more notes here so push this note in there
-        temp_arr[temp_arr.length - 1].push(noteName);
+        temp_arr[temp_arr.length - 1].push([noteNumber, velocity, selectedNoteDuration, ragSpecificPitchBendInfo,approach, articulation ]);
       } else {
         //push to a new array if first note or if last array exhausted
-        temp_arr.push([noteName]);
+        temp_arr.push([[noteNumber, velocity, selectedNoteDuration, ragSpecificPitchBendInfo,approach, articulation ]]);
       }
 
-      var temp2 = this.state.taal_transcript;
-      temp2[this.state.taal_transcript.length - 1][
-        this.state.selectedMode
-      ] = temp_arr;
-      //this.setState({taal_transcript[taal_transcript.length - 1][selectedMode]:temp_arr})
-      this.setState({ taal_transcript: temp2 });
-      console.log(this.state.taal_transcript);
-    }
+      var temp2 = this.state.transcript;
+      temp2[this.state.transcript.length - 1][this.state.selectedMode] = temp_arr;
+      this.setState({ transcript: temp2 });
+      
+    
   }
 
   onModeChange(e) {
     this.setState({ selectedMode: e.value });
-    let temp = this.state.taal_transcript;
+    let temp = this.state.transcript;
     let obj = {};
-    obj[e.value] = [];
+    obj[e.value] = []; // bug if same taal mode is selected twice the second taal data will overwrite the previous data
     temp.push(obj);
-    this.setState({ taal_transcript: temp });
-    //var table = this.renderTaalTable("tonga", 13)
-    //var new_val = this.state.alaap_transcript + " " + table;
-    //this.setState({alaap_transcript: new_val})
+    this.setState({ transcript: temp });
   }
   
   on4ButtonsPressed(e) {
@@ -372,7 +287,7 @@ export default class OverallStructure extends React.Component {
   }
 
   render() {
-    var taalTranscript = this.state.taal_transcript;
+    var transcript = this.state.transcript;
     var screenHeight = this.state.screenHeight;
     var topHeight = Math.floor((screenHeight * 2) / 3);
     var notationHeight = Math.floor(topHeight - 40) + "px";
@@ -405,8 +320,7 @@ export default class OverallStructure extends React.Component {
               placeholder="Select mode"
             />
             <div id="notation" style={{ height: notationHeight, width: centerWidth, padding: "10px" }}>
-              {this.state.alaap_transcript}
-              {this.renderAllTaalTables(taalTranscript)}
+              {this.renderAllTaalTables(transcript)}
             </div>
           </div>
           <div class="right-section" style={{ width: rightWidth }}>
@@ -426,8 +340,7 @@ export default class OverallStructure extends React.Component {
         <div id="keyboardContainer" style={{ height: keyBoardHeight + "px" }}>
           <Keyboard
             height={keyBoardHeight}
-            startWithOctave={this.state.startWithOctave}
-            numberOfOctaves={this.state.numberOfOctaves}
+            saOffset={this.state.saOffset}
             synth={this.state.synth}
             midi={this.state.midi}
             noteEventUIUpdater={this.noteEventUIUpdater}

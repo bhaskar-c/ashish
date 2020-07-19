@@ -84,9 +84,9 @@ Synth.prototype = {
 		   }
 	    obj.pianoBuffers[key] = buffer
         var loader = document.getElementById('loader');
-        var synthContainer = document.getElementById('synthContainer');
-        if(obj.pianoBuffers.length < 88) {loader.style.display = "inline"; synthContainer.style.display = "none";}
-				else {loader.style.display = "none"; synthContainer.style.display = "block";}
+        var app = document.getElementById('app');
+        if(obj.pianoBuffers.length < 88) {loader.style.display = "inline"; app.style.display = "none";}
+				else {loader.style.display = "none"; app.style.display = "block";}
 		
       },
 
