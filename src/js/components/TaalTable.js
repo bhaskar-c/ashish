@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+  import React, { Component } from 'react'
 
 //matra
 const taalMatras = {"Alaap":30, "Teental": 16, "Roopak": 7, "Choutaal": 12, "Ektaal":12, "Jhaptaal":10, "Keherwa":8, "Dadra": 6 }
@@ -14,7 +14,6 @@ export default class TaalTable extends Component {
 
 
   getNoteNameWithOctave(noteNumber){
-     console.log(noteNumber);
     if( noteNumber == "-") {return "-"}
     if( noteNumber == "X") {return "X"}
     let octave = Math.floor(noteNumber / 12);
@@ -26,6 +25,23 @@ export default class TaalTable extends Component {
     
   }
   
+ 
+ onCellEdited(e){
+   console.log(e);
+   var sel = document.getSelection()
+        
+    //nd = sel.anchorNode,
+    //text = nd.textContent.slice(0, sel.focusOffset);
+
+    //var line=text.split("\n").length;
+    //var col=text.split("\n").pop().length;
+    alert(sel)
+   }
+ 
+ 
+ onPasteContent(){
+   alert("Not allowed");
+   }
   
   renderTableRows(){
     let rows = [];
@@ -47,7 +63,7 @@ export default class TaalTable extends Component {
             cellContent += " "+ this.getNoteNameWithOctave(noteNumber)
             }
           }
-        cell.push(<td className={`${this.state.taalName}_cell`} key={cellID} id={cellID}>{cellContent}</td>)
+        cell.push(<td className={`${this.state.taalName}_cell`} key={cellID} id={cellID} >{cellContent}</td>)
       }
       rows.push(<tr>{cell}</tr>)
     }
@@ -63,7 +79,7 @@ export default class TaalTable extends Component {
         <h2>{this.state.taalName}</h2>
         <div className="row">
           <div className="col s12 board">
-            <table id={this.state.taalName} className={className}>
+            <table id={this.state.taalName} className={className} onInput={this.onCellEdited} onPaste={this.onPasteContent} contentEditable>
                <tbody>
                  {this.renderTableRows()}
                </tbody>

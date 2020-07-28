@@ -625,15 +625,18 @@ white-space: pre-wrap;       /* css-3 */
 #Teental > tbody > tr > td:nth-child(8),
 #Teental > tbody > tr > td:nth-child(12),
 #Teental > tbody > tr > td:nth-child(16),
+
 #Choutaal > tbody > tr > td:nth-child(2),
 #Choutaal > tbody > tr > td:nth-child(4),
 #Choutaal > tbody > tr > td:nth-child(6),
 #Choutaal > tbody > tr > td:nth-child(8),
 #Choutaal > tbody > tr > td:nth-child(10),
 #Choutaal > tbody > tr > td:nth-child(12),
+
 #Roopak > tbody > tr > td:nth-child(8),
 #Roopak > tbody > tr > td:nth-child(12),
 #Roopak > tbody > tr > td:nth-child(16),
+
 #Ektaal > tbody > tr > td:nth-child(2),
 #Ektaal > tbody > tr > td:nth-child(4),
 #Ektaal > tbody > tr > td:nth-child(6),

@@ -167,6 +167,7 @@ export default class OverallStructure extends React.Component {
   }
 
   noteEventUIUpdater(noteNumber, velocity) {
+    //console.log(this.state.transcript);      
      if (this.state.transcript.length == 0){
        let obj = {};
        obj[this.state.selectedMode] = [];

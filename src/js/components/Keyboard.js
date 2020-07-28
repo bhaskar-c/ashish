@@ -25,9 +25,23 @@ class Keyboard extends Component {
     this.noteEventUIUpdater = props.noteEventUIUpdater;
     this.maxHeight = props.height;
     
+
+    
     
   }
 
+print = () => {
+  var object = this.refs.Progress1;  
+}
+
+  componentDidMount() {
+        //this.scrollToNode(this.firstRef.current);
+    }
+
+
+  componentDidUpdate() {
+        //this.scrollToNode(this.firstRef.current);
+    }
 
 
   render(){
@@ -37,10 +51,14 @@ class Keyboard extends Component {
     var saOffset = this.props.saOffset;
       for (var j = 0; j < this.numberOfOctaves; j++) {
         var i =   j*12 -1 -0 // saOffset;
+        let isMiddeC = false;
+        if (i == 59) {
+            isMiddeC = true;
+        }
         indents.push(
             <span key={i.toString()}>
             <li style={{width: keyWidth + 'px'}}>
-              <Key maxHeight={this.maxHeight} noteEventUIUpdater={this.noteEventUIUpdater} color="key_white" id={i+1} noteNumber={i +1 } synth={this.synth} octave={j} />
+              <Key  maxHeight={this.maxHeight} noteEventUIUpdater={this.noteEventUIUpdater} color="key_white" id={i+1} noteNumber={i +1 } synth={this.synth} octave={j} />
               <Key maxHeight={this.maxHeight} noteEventUIUpdater={this.noteEventUIUpdater} color="key_black" id={i+2} noteNumber={i +2}  synth={this.synth} octave={j}/>
             </li>
             <li style={{width: keyWidth + 'px'}}>
