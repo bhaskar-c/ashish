@@ -2,9 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom";
 import Dropdown from "react-dropdown";
 
+import TopMenu from "./TopMenu";
 
 import Keyboard from "./Keyboard";
 import BottomSection from "./BottomSection";
+
 import TaalTable from "./TaalTable";
 import Synth from "../audio/synth";
 import InitMIDI from "./../audio/midi";
@@ -317,7 +319,7 @@ export default class OverallStructure extends React.Component {
               title="Select Mode"
               options={this.modes}
               onChange={this.onModeChange.bind(this)}
-              value={this.modes[0]}
+              value={this.state.selectedMode}
               placeholder="Select mode"
             />
             <div id="notation" style={{ height: notationHeight, width: centerWidth, padding: "10px" }}>

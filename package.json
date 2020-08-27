@@ -5,6 +5,7 @@
   "main": "webpack.config.js",
   "dependencies": {
     "prop-types": "^15.5.10",
+    "rc-menu": "^8.5.3",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-dropdown": "^1.7.0",

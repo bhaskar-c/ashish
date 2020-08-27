@@ -14,7 +14,7 @@ body {
   font-size: 12px;
   line-height: 1.42857143;
   color: #6f6d08;
-  background: #171518;
+
   overflow: hidden;
 }
 .title{
@@ -40,6 +40,7 @@ font-size: 80%;
     align-content: stretch;
     align-items: stretch;
     height:100%;
+      background: #171518;
     }
 
 .left-section {
@@ -54,6 +55,8 @@ font-size: 80%;
     -webkit-align-self: auto;
     -ms-flex-item-align: auto;
     align-self: auto;
+      background: #171518;
+      
     }
 
 .center-section {
@@ -69,6 +72,7 @@ font-size: 80%;
     -webkit-align-self: auto;
     -ms-flex-item-align: auto;
     align-self: auto;
+      background: #fff;
 	
     }
 
@@ -84,6 +88,7 @@ font-size: 80%;
     -webkit-align-self: auto;
     -ms-flex-item-align: auto;
     align-self: auto;
+      background: #171518;
     }
 
 .note-duration-buttons{
@@ -592,8 +597,9 @@ border-bottom: 1px solid red;
 
 #notation{
 padding: 15px;
-background: #111;
-color: #fff;
+margin: 15px;
+background: #fff;
+color: #111;
 font-size: 90%;
 overflow-x: none; 
 overflow-y: auto; 
@@ -616,7 +622,7 @@ white-space: pre-wrap;       /* css-3 */
 #Choutaal > tbody > tr > td,
 #Teental > tbody > tr > td{
   min-width:30px;
-  border-right:1px solid #353535;
+  border-right:1px solid #e5e5e5;
   padding:5px;
   margin:4px;
 }
@@ -653,7 +659,7 @@ white-space: pre-wrap;       /* css-3 */
 #Dadra > tbody > tr > td:nth-child(6)
 
 {
-  border-right:2px solid #e5e5e5;
+  border-right:2px solid #353535;
 }
 
 
