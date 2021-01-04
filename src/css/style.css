@@ -31,8 +31,16 @@ font-size: 80%;
 
 #keyboardContainer { overflow-y: scroll;}
 
+.topMenuSection {
+    background: white;
+    outline: none;
+    display:block;
+    min-height: 60px;
+    box-shadow: inset 0 -1px 0 0 #fff, 0 1px 5px rgba(0,0,0,.1);
+    margin-bottom:20px;
+}
 
-.topSection {
+.mainContentSection {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -40,7 +48,7 @@ font-size: 80%;
     align-content: stretch;
     align-items: stretch;
     height:100%;
-      background: #171518;
+      background: rgb(248, 249, 250);
     }
 
 .left-section {
@@ -55,7 +63,7 @@ font-size: 80%;
     -webkit-align-self: auto;
     -ms-flex-item-align: auto;
     align-self: auto;
-      background: #171518;
+      
       
     }
 
@@ -72,7 +80,8 @@ font-size: 80%;
     -webkit-align-self: auto;
     -ms-flex-item-align: auto;
     align-self: auto;
-      background: #fff;
+    
+
 	
     }
 
@@ -88,7 +97,8 @@ font-size: 80%;
     -webkit-align-self: auto;
     -ms-flex-item-align: auto;
     align-self: auto;
-      background: #171518;
+
+
     }
 
 .note-duration-buttons{
@@ -608,6 +618,7 @@ white-space: pre-wrap;       /* css-3 */
     white-space: -webkit-pre-wrap; /* Newer versions of Chrome/Safari*/
     word-break: break-all;
     white-space: normal;
+    box-shadow: 0 0 20px rgba(0,0,0,.12);
 
 }
 
@@ -664,3 +675,82 @@ white-space: pre-wrap;       /* css-3 */
 
 
 
+
+
+.menu-container:before,
+.menu-container:after {
+  content: '';
+  display: block;
+  height: 0;
+  clear: both;
+}
+
+.menu-container.below {
+  position: relative;
+}
+
+.menu-container.below .menu {
+  width: 100%;
+}
+
+.menu-container.below .menu .menu-item {
+  float: left;
+  border: none;
+}
+
+.menu-container.below .sub-menu {
+  position: absolute;
+  top: 30px;
+  border: 1px #eee solid;
+  border-top: none;
+}
+
+.menu, .sub-menu {
+  float: left;
+  
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: 1px #eee solid;
+}
+
+.menu .menu-item,
+.sub-menu .sub-menu-item {
+  width: 40px;
+  line-height: 30px;
+  padding: 0 20px;
+  border-top: 1px #eee solid;
+  cursor: pointer;
+  white-space: nowrap;
+  font-size: 14px;
+  font-family: monospace;     
+  background: white;
+  z-index: 999999;
+  
+  
+}
+
+.menu .menu-item:first-child {
+  border-top: none;
+}
+
+.menu .menu-item.active {
+  color: #f40;
+  border-right: 1px #fff solid;
+  margin-right: -1px;
+}
+
+.sub-menu {
+  border-left: none;
+  
+}
+
+.sub-menu .sub-menu-item {
+  width: 100%;
+  border: none;
+  font-size: 14px;
+}
+
+.sub-menu .sub-menu-item:hover {
+  color: #f40;
+}

@@ -302,7 +302,8 @@ export default class OverallStructure extends React.Component {
     var setVolume = this.setVolume;
     return (
       <div>
-        <div class="topSection" style={{ height: topHeight + "px" }}>
+        <div class="topMenuSection"> <TopMenu /></div>
+        <div class="mainContentSection" style={{ height: topHeight + "px" }}>
           <div class="left-section" style={{ width: leftWidth }}>
             <span class="title">Note Durations</span>
             <table>
@@ -322,7 +323,7 @@ export default class OverallStructure extends React.Component {
               value={this.state.selectedMode}
               placeholder="Select mode"
             />
-            <div id="notation" style={{ height: notationHeight, width: centerWidth, padding: "10px" }}>
+            <div id="notation" style={{ height: notationHeight, width: centerWidth-20, padding: "10px" }}>
               {this.renderAllTaalTables(transcript)}
             </div>
           </div>

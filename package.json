@@ -5,10 +5,11 @@
   "main": "webpack.config.js",
   "dependencies": {
     "prop-types": "^15.5.10",
-    "rc-menu": "^8.5.3",
+    "rc-menu": "^8.10.1",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-dropdown": "^1.7.0",
+    "react-onclickoutside": "^6.9.0",
     "react-rangeslider": "^2.1.0"
   },
   "devDependencies": {

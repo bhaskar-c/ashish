@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-//import Menu, {SubMenu, MenuItem} from 'rc-menu';
-//https://react-component.github.io/menu/  
+import Menu from "./Menu";
+import menuData from "./menuData";
 
 class TopMenu extends Component {
 
@@ -14,7 +14,7 @@ class TopMenu extends Component {
   render(){
     return(
         <div id="topMenu">
- hello
+        <Menu menuData={menuData} />
       </div>
     );
   }
