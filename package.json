@@ -27,7 +27,7 @@
     "uglify-js": "^3.0.27",
     "uglifyify": "^4.0.3",
     "webpack": "^1.12.9",
-    "webpack-dev-server": "^1.14.1"
+    "webpack-dev-server": "^3.1.11"
   },
   "scripts": {
     "piano": "webpack-dev-server --port 5001 --content-base src --inline --hot",
